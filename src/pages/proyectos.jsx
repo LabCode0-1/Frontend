@@ -3,7 +3,7 @@ import React from 'react'
 const proyectos = () => {
     return (
         <div>
-            <div class="row">
+            <div class="row" className='padio'>
   <div class="col-sm-6">
     <div class="card">
       <div class="card-body">
