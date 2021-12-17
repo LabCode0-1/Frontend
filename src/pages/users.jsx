@@ -1,38 +1,49 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import { useQuery } from '@apollo/client'
+import {GET_USUARIOS} from '../graphql/users/queries'
 
-const users = () => {
+
+const Users = () => {
+ 
+  const {data, error, loading} = useQuery(GET_USUARIOS);
+
+
+  useEffect(()=>{ 
+    console.log('data servidor', data);
+
+  },[data]);
+
+
     return (
         <div className='padio'>
             <table class="table">
   <thead>
     <tr>
-      <th scope="col">id</th>
+      
       <th scope="col">email</th>
-      <th scope="col">identificacion</th>
       <th scope="col">nombre</th>
-      <th scope="col">password</th>
+      <th scope="col">identificacion</th>
       <th scope="col">estado</th>
       <th scope="col">rol</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td colspan="2">Larry the Bird</td>
-      <td>@twitter</td>
-    </tr>
+    {data && 
+    data.getUsers.map((u)=>{
+      return (
+        <tr key ={u._id}>
+          <td>{u.nombre}</td>
+          <td>{u.mail}</td>
+          <td>{u.identificacion}</td>
+          <td>{u.estado}</td>
+          <td>{u.rol}</td>
+
+        </tr>
+
+      )
+    })}
+ 
+   
   </tbody>
 </table>
             
@@ -40,4 +51,4 @@ const users = () => {
     )
 }
 
-export default users
+export default Users
